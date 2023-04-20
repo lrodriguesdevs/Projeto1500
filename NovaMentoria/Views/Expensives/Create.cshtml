@@ -1,0 +1,95 @@
+﻿@model NovaMentoria.Models.Expensive
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Expensive</h4>
+<hr />
+<div class="row">
+    <div class="col-md">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Type" /> @Html.DisplayNameFor(model => model.Type)
+                </label>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="RegisterDate" class="control-label"></label>
+                <input asp-for="RegisterDate" class="form-control" />
+                <span asp-validation-for="RegisterDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="CashDate" class="control-label"></label>
+                <input asp-for="CashDate" class="form-control" />
+                <span asp-validation-for="CashDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="MonthDate" class="control-label"></label>
+                <input asp-for="MonthDate" class="form-control" />
+                <span asp-validation-for="MonthDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="CompDate" class="control-label"></label>
+                <input asp-for="CompDate" class="form-control" />
+                <span asp-validation-for="CompDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="DisbursementId" class="control-label"></label>
+                <select asp-for="DisbursementId" class ="form-control" asp-items="ViewBag.DisbursementId"></select>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="CaptureId" class="control-label"></label>
+                <select asp-for="CaptureId" class ="form-control" asp-items="ViewBag.CaptureId"></select>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="PersonId" class="control-label"></label>
+                <select asp-for="PersonId" class ="form-control" asp-items="ViewBag.PersonId"></select>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="BankAccountId" class="control-label"></label>
+                <select asp-for="BankAccountId" class ="form-control" asp-items="ViewBag.BankAccountId"></select>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="TargetBill" class="control-label"></label>
+                <input asp-for="TargetBill" class="form-control" />
+                <span asp-validation-for="TargetBill" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Balance" class="control-label"></label>
+                <input asp-for="Balance" class="form-control" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Plan" /> @Html.DisplayNameFor(model => model.Plan)
+                </label>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,107 @@
+﻿@model NovaMentoria.Models.ActualState
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ActualState</h4>
+<hr />
+<div class="row">
+    <div class="col-md">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          <div class="row">
+            <div class="col-md-3">
+                <label asp-for="CircleId" class="control-label"></label>
+                <select asp-for="CircleId" class ="form-control" asp-items="ViewBag.CircleId"></select>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="ProjectId" class="control-label"></label>
+                    <select asp-for="ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="TypeObject" class="control-label"></label>
+                <select asp-for="TypeObject" class="form-control">
+                        <option value="0">GESTAO</option>
+                        <option value="1">ETL</option>
+                        <option value="2">DASH</option>
+                        <option value="3">BBP</option>
+                        <option value="4">AULA</option>
+                        <option value="5">PREPAULA</option>
+                        <option value="6">DEV</option>
+                        <option value="7">MANUT</option>
+                </select>
+                <span asp-validation-for="TypeObject" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="TypeConsultorId" class="control-label"></label>
+                    <select asp-for="TypeConsultorId" class="form-control" asp-items="ViewBag.TypeConsultorId"></select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="TimePlanned" class="control-label"></label>
+                <input asp-for="TimePlanned" class="form-control" />
+                <span asp-validation-for="TimePlanned" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="PersonId" class="control-label"></label>
+                <select asp-for="PersonId" class ="form-control" asp-items="ViewBag.PersonId"></select>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-3">
+                <label asp-for="RealTime" class="control-label"></label>
+                <input asp-for="RealTime" class="form-control" />
+                <span asp-validation-for="RealTime" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Delivered" /> @Html.DisplayNameFor(model => model.Delivered)
+                </label>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Productivity" class="control-label"></label>
+                <input asp-for="Productivity" class="form-control" />
+                <span asp-validation-for="Productivity" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="DateTime" class="control-label"></label>
+                <input asp-for="DateTime" class="form-control" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="FinalValue" class="control-label"></label>
+                <input asp-for="FinalValue" class="form-control" />
+                <span asp-validation-for="FinalValue" class="text-danger"></span>
+            </div>
+          </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

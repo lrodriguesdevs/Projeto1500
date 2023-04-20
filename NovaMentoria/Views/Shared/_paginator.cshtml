@@ -1,0 +1,46 @@
+﻿<div>
+    <ul class="pagination pagination-sn n-0 float-right">
+        @if (Model.PageNumber > 1)
+        {
+            <li class="page-item">
+                <a class=page-link asp-action="Index" asp-route-pageNumber="@(Model.PageNumber -1)" asp-route-pageSize="@(Model.PageSize)">←</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class=page-link href="#">←</a>
+            </li>
+        }
+        @for (int i = 1; i <= Math.Ceiling(Model.TotalCount / (double)Model.PageSize); i++)
+        {
+            @if (i == Model.PageNumber)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="#">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pagenimber="@i" asp-route-pageSize="@(Model.PageSize)">@i</a>
+                </li>
+
+            }
+        }
+        @if (Model.PageNumber < Math.Ceiling(Model.TotalCount / (double)Model.PageSize))
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber +1)" asp-route-pageSize="@(Model.PageSize)">→</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" href="#">→</a>
+            </li>
+        }
+
+    </ul>
+</div>
+

@@ -1,0 +1,167 @@
+﻿@model PaginationViewModel<Circle>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input id="checkCentral" type="checkbox" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
+            </th>
+            <th>
+                <button id="botaoDeletar" type="button" style=" border-color:transparent;background-color:none">
+                    <i class="fas fa-trash" style="color: #ff0000;">/</i>
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    <input name="checkSelect" type="checkbox" value="@item.Id" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_paginator" />
+@*<div>
+    <ul class="pagination pagination-sn n-0 float-right">
+        @if (Model.PageNumber > 1)
+        {
+            <li class="page-item">
+                <a class=page-link asp-action="Index" asp-route-pageNumber="@(Model.PageNumber -1)" asp-route-pageSize="@(Model.PageSize)">←</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class=page-link href="#">←</a>
+            </li>
+        }
+        @for (int i = 1; i <= Math.Ceiling(Model.TotalCount / (double)Model.PageSize); i++)
+        {
+            @if (i == Model.PageNumber)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="#">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pagenimber="@i" asp-route-pageSize="@(Model.PageSize)">@i</a>
+                </li>
+
+            }
+        }
+        @if (Model.PageNumber < Math.Ceiling(Model.TotalCount / (double)Model.PageSize))
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber +1)" asp-route-pageSize="@(Model.PageSize)">→</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" href="#">→</a>
+            </li>
+        }
+
+    </ul>
+</div>
+*@
+
+
+
+            
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $("#checkCentral").click(function () {
+                //Verifica se o botão que possui o id checkCentral foi pressionado
+                //Encontra todas as tags input que possuem a propriedade name = checkSelect
+                //Troca a propriedade checked pelo valor que o botão id checkCentral possui
+                $("input[name='checkSelect']").prop('checked', $(this).prop('checked'));
+                if ($(this).prop('checked'))
+                    $("#botaoDeletar").show();
+                else
+                    $("#botaoDeletar").hide();
+            });
+
+            $("input[name='checkSelect']").click(function () {
+                if ($(this).prop('checked')) {
+                    $("#botaoDeletar").show();
+                }
+                else {
+                    $("#botaoDeletar").hide();
+                }
+            });
+
+            $("input[name='checkSelect']").click(function () {
+                var IdSelecionados = $("input[name='checkSelect']:checked").length;
+
+                if ($(this).is(':checked') || IdSelecionados > 0) {
+                    $("#botaoDeletar").show();
+                }
+                else {
+                    $("#botaoDeletar").hide();
+                    $("#checkCentral").prop('checked', false);
+                }
+
+            });
+
+            $("#botaoDeletar").click(function () {
+                var idsSelecionados = $("input[name='checkSelect']:checked").map(function () {
+                    return $(this).val();
+                }).get();
+                //Map: é como um foreach para arrays
+                //Gera uma informação nova
+
+                //Via HTML
+                if (idsSelecionados.length > 0) {
+                    if (confirm("Você tem certeza de que deseja deletar este(s) registro(s)?")) {
+                        $.ajax({
+                            url: '@Url.Action("MultipleDelete", "Circles")',
+                            type: 'POST',
+                            data: { ids: idsSelecionados }, //Passa na URl as informações
+                            success: function () {
+                                location.reload()
+                            },
+                            error: function () {
+                                alert("Um erro ocorreu ao tentar deletar estes(s) registro(s).")
+                            }
+                        });
+                    }
+                }
+                else {
+                    alert("Por favor, selecione pelo menos um item para ser deletado")
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,108 @@
+﻿@model PaginationViewModel<NovaMentoria.Models.ActualState>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Circle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Project)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TypeObject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TypeConsultor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TimePlanned)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Person)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().RealTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Delivered)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Productivity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().FinalValue)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Items) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Circle.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeObject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeConsultor.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimePlanned)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Delivered)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Productivity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinalValue)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<partial name ="_paginator" />

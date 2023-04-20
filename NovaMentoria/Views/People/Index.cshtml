@@ -1,0 +1,202 @@
+﻿@model PaginationViewModel<Person>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input id="checkCentral" type="checkbox" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
+            </th>
+            <th>
+                <button id="botaoDeletar" type="button" style=" border-color:transparent;background-color:none">
+                    <i class="fas fa-trash" style="color: #ff0000;">/</i>
+                </button>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Circle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().DateBorn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().NivelStudy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().University)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().GraduateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().DateRegister)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Enterprise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Recommendation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().IsStudying)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    <input name="checkSelect" type="checkbox" value="@item.Id" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Circle.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPF)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateBorn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelStudy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.University)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GraduateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRegister)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Enterprise)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recommendation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsStudying)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_paginator" />
+
+
+@section Scripts
+   {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+   }
+
+    <script>
+        $(document).ready(function () {
+            $("#checkCentral").click(function () {
+                //Verifica se o botão que possui o id checkCentral foi pressionado
+                //Encontra todas as tags input que possuem a propriedade name = checkSelect
+                //Troca a propriedade checked pelo valor que o botão id checkCentral possui
+                $("input[name='checkSelect']").prop('checked', $(this).prop('checked'));
+                if ($(this).prop('checked'))
+                    $("#botaoDeletar").show();
+                else
+                    $("#botaoDeletar").hide();
+            });
+
+            $("input[name='checkSelect']").click(function () {
+                if ($(this).prop('checked')) {
+                    $("#botaoDeletar").show();
+                }
+                else {
+                    $("#botaoDeletar").hide();
+                }
+            });
+
+            $("input[name='checkSelect']").click(function () {
+                var IdSelecionados = $("input[name='checkSelect']:checked").length;
+
+                if ($(this).is(':checked') || IdSelecionados > 0) {
+                    $("#botaoDeletar").show();
+                }
+                else {
+                    $("#botaoDeletar").hide();
+                    $("#checkCentral").prop('checked', false);
+                }
+
+            });
+
+            $("#botaoDeletar").click(function () {
+                var idsSelecionados = $("input[name='checkSelect']:checked").map(function () {
+                    return $(this).val();
+                }).get();
+                //Map: é como um foreach para arrays
+                //Gera uma informação nova
+
+                //Via HTML
+                if (idsSelecionados.length > 0) {
+                    if (confirm("Você tem certeza de que deseja deletar este(s) registro(s)?")) {
+                        $.ajax({
+                            url: '@Url.Action("MultipleDelete", "Circles")',
+                            type: 'POST',
+                            data: { ids: idsSelecionados }, //Passa na URl as informações
+                            success: function () {
+                                location.reload()
+                            },
+                            error: function () {
+                                alert("Um erro ocorreu ao tentar deletar estes(s) registro(s).")
+                            }
+                        });
+                    }
+                }
+                else {
+                    alert("Por favor, selecione pelo menos um item para ser deletado")
+                }
+            });
+        });
+    </script>
+   }
