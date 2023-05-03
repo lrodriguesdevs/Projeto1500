@@ -1,20 +1,20 @@
-﻿@*@model PaginationViewModel<Circle>*@
+﻿@model PaginationViewModel<Circle>
 @{
     ViewData["Title"] = "Index";
 }
 
-<div id="StudentTableContainer"></div>
-@*
-<h1>Index</h1>
+
+
+<h1>index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="create">create new</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                <input id="checkCentral" type="checkbox" />
+                <input id="checkcentral" type="checkbox" />
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
@@ -34,24 +34,24 @@
                     <input name="checkSelect" type="checkbox" value="@item.Id" />
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelitem => item.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="edit" asp-route-id="@item.Id">edit</a> |
+                    <a asp-action="details" asp-route-id="@item.Id">details</a> |
+                    <a asp-action="delete" asp-route-id="@item.Id">delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<partial name="_paginator" />*@
-@*<div>
+<partial name="_paginator" />
+@*@<div>
     <ul class="pagination pagination-sn n-0 float-right">
-        @if (Model.PageNumber > 1)
+        @if (model.pagenumber > 1)
         {
             <li class="page-item">
-                <a class=page-link asp-action="Index" asp-route-pageNumber="@(Model.PageNumber -1)" asp-route-pageSize="@(Model.PageSize)">←</a>
+                <a class=page-link asp-action="index" asp-route-pagenumber="@(model.pagenumber -1)" asp-route-pagesize="@(model.pagesize)">←</a>
             </li>
         }
         else
@@ -60,9 +60,9 @@
                 <a class=page-link href="#">←</a>
             </li>
         }
-        @for (int i = 1; i <= Math.Ceiling(Model.TotalCount / (double)Model.PageSize); i++)
+        @for (int i = 1; i <= math.ceiling(model.totalcount / (double)model.pagesize); i++)
         {
-            @if (i == Model.PageNumber)
+            @if (i == model.pagenumber)
             {
                 <li class="page-item">
                     <a class="page-link" href="#">@i</a>
@@ -71,15 +71,15 @@
             else
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="Index" asp-route-pagenimber="@i" asp-route-pageSize="@(Model.PageSize)">@i</a>
+                    <a class="page-link" asp-action="index" asp-route-pagenimber="@i" asp-route-pagesize="@(model.pagesize)">@i</a>
                 </li>
 
             }
         }
-        @if (Model.PageNumber < Math.Ceiling(Model.TotalCount / (double)Model.PageSize))
+        @if (model.pagenumber < math.ceiling(model.totalcount / (double)model.pagesize))
         {
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber +1)" asp-route-pageSize="@(Model.PageSize)">→</a>
+                <a class="page-link" asp-action="index" asp-route-pagenumber="@(model.pagenumber +1)" asp-route-pagesize="@(model.pagesize)">→</a>
             </li>
         }
         else
@@ -90,12 +90,12 @@
         }
 
     </ul>
-</div>
-*@
+</div>*@
 
 
 
-            
+
+
 @section Scripts
     {
     @{
@@ -104,42 +104,12 @@
 
     <script>
 
-       
+
 
 
         $(document).ready(function () {
 
-            $('#StudentTableContainer').jtable({
-                title: 'The Student List',
-                paging: true, //Enables paging
-                pageSize: 10, //Actually this is not needed since default value is 10.
-                sorting: true, //Enables sorting
-                defaultSorting: 'Name ASC', //Optional. Default sorting on first load.
-                actions: {
-                    listAction: '/Circles/Index',
-                    createAction: 'Circles/Create',
-                    updateAction: '/Circles/Update',
-                    deleteAction: '/Circles/Delete'
-                },
-                fields: {
-                    Id: {
-                        key: true,
-                        create: false,
-                        edit: false,
-                        list: false
-                    },
-                    Name: {
-                        title: 'Name',
-                        width: '23%'
-                    },
-
-
-                }
-            });
-
-            //Load student list from server
-            $('#StudentTableContainer').jtable('load');
-
+           
             $("#checkCentral").click(function () {
                 //Verifica se o botão que possui o id checkCentral foi pressionado
                 //Encontra todas as tags input que possuem a propriedade name = checkSelect

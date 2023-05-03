@@ -96,7 +96,7 @@ namespace NovaMentoria.Controllers
 
                 _context.Add(Student);
                 _context.Add(Teacher);
-                await _context.SaveChangesAsync();
+                
 
                 
                 await _context.SaveChangesAsync();
