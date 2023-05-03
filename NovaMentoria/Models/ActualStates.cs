@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,7 +36,7 @@ namespace NovaMentoria.Models
         public TypeObject TypeObject { get; set; }
 
         public int TypeConsultorId { get; set; }
-        [DisplayName("Consultor")]
+        [DisplayName("Tarifa")]
         public TypeConsultor TypeConsultor { get; set; }
         [DisplayName("Descrição")]
         public string Description { get; set; }
@@ -55,9 +56,10 @@ namespace NovaMentoria.Models
         public bool Delivered { get; set; }
         [DisplayName("Produtividade")]
         public float Productivity { get; set; }
+        // [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DisplayName("Data Entrega")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yy}")]
-        public  float DateTime  { get; set; }
+        public  DateTime DateTime  { get; set; }
         [DisplayName("Valor Final")]
         public float FinalValue { get; set; }
         [DisplayName("Horas dia")]
@@ -72,15 +74,15 @@ namespace NovaMentoria.Models
                 this.RealTime = this.HoursDay.Sum(x => x.Hours);
                 this.Delivered = this.HoursDay.FirstOrDefault(x => x.Delivered == true) != null;
             }
-            if (this.Project.Type == TypeTime.PrecoFechado)
-            {
-                float tarifa = this.Project.Value / this.Project.Duration;
-                this.Value = tarifa * this.TimePlanned;
-            }
-            else
-            {
-                  this.Value = this.TypeConsultor.Fee * this.TimePlanned;
-            }
+            //if (this.Project.Type == TypeTime.PrecoFechado)
+            //{
+            //    float tarifa = this.Project.Value / this.Project.Duration;
+            //    this.Value = tarifa * this.TimePlanned;
+            //}
+            //else
+            //{
+            //      this.Value = this.TypeConsultor.Fee * this.TimePlanned;
+            //}
             if (this.Delivered)
             {
                     if (this.Project.Type == TypeTime.PrecoFechado)

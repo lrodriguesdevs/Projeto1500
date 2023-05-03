@@ -15,6 +15,7 @@ using System.Security.Permissions;
    
     [DisplayName("Turma/Circulo:")]
     public int ?CircleId { get; set; }
+    [DisplayName("Turma/Circulo:")]
     public Circle Circle { get; set; }// recebe dados da classe circle
     [DisplayName("Nome:")]
     public string Name { get; set; }

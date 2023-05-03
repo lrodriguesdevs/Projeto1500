@@ -148,11 +148,6 @@ C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Ra
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\ActualStates\Details.cshtml.g.cs
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\ActualStates\Edit.cshtml.g.cs
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\ActualStates\Index.cshtml.g.cs
-C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Create.cshtml.g.cs
-C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Delete.cshtml.g.cs
-C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Details.cshtml.g.cs
-C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Edit.cshtml.g.cs
-C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Index.cshtml.g.cs
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\Captures\Create.cshtml.g.cs
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\Captures\Delete.cshtml.g.cs
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\Captures\Details.cshtml.g.cs
@@ -510,3 +505,13 @@ C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\bin\Debug\netcoreapp3.1\Mi
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\bin\Debug\netcoreapp3.1\System.Text.Json.dll
 C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_paginator.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\TypeConsultors\Create.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\TypeConsultors\Delete.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\TypeConsultors\Details.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\TypeConsultors\Edit.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\TypeConsultors\Index.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Create.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Delete.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Details.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Edit.cshtml.g.cs
+C:\Users\surfs\source\repos\NovaMentoria\NovaMentoria\obj\Debug\netcoreapp3.1\Razor\Views\BankAccounts\Index.cshtml.g.cs

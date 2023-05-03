@@ -8,20 +8,15 @@
 
 <p>
     <a asp-action="Create">Create New</a>
+    <button id="botaoDeletar" type="button" style=" border-color:transparent;background-color:none">
+        <i class="fas fa-trash" style="color: #ff0000;">/</i>
+    </button>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 <input id="checkCentral" type="checkbox" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
-            </th>
-            <th>
-                <button id="botaoDeletar" type="button" style=" border-color:transparent;background-color:none">
-                    <i class="fas fa-trash" style="color: #ff0000;">/</i>
-                </button>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Circle)
@@ -181,7 +176,7 @@
                 if (idsSelecionados.length > 0) {
                     if (confirm("Você tem certeza de que deseja deletar este(s) registro(s)?")) {
                         $.ajax({
-                            url: '@Url.Action("MultipleDelete", "Circles")',
+                            url: '@Url.Action("MultipleDelete", "People")',
                             type: 'POST',
                             data: { ids: idsSelecionados }, //Passa na URl as informações
                             success: function () {

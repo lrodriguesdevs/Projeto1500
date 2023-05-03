@@ -8,13 +8,17 @@ namespace NovaMentoria.Models
     {
         [Key] 
         public int Id { get; set; }
-        [DisplayName("Type")]
+        [DisplayName("Recebimento")]
         public bool Type { get; set; }
         [DisplayName("Data de Realização")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yy}")]
         public DateTime RegisterDate { get; set; }
         [DisplayName("Data do Caixa")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yy}")]
         public DateTime CashDate { get; set; }
         [DisplayName("Mês Caixa")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{dd/MM/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/yy}")]
         public DateTime MonthDate { get; set; }
         [DisplayName("Data Competência")]
         public DateTime CompDate { get; set; }
@@ -42,8 +46,10 @@ namespace NovaMentoria.Models
         [DisplayName("Valor")]
         public float Value { get; set; }
         public bool Plan { get; set; }
-        [DisplayName("Saldo")]
-        public float Balance { get; set; }  
+        [DisplayName("Saldo do Banco")]
+        public float Balance { get; set; }
+        [DisplayName("Saldo da Empresa")]
+        public float EnterpriseBalance { get; set; }
 
     }
 }

@@ -22,7 +22,27 @@ namespace NovaMentoria.Controllers
             _context = context;
         }
 
-        // GET: ActualStates
+       // get: actualstates
+
+        //public async Task<IActionResult> Index()
+        //{
+        //    var user = await _context.Person
+        //        .Where(x => x.Name == User.Identity.Name)
+        //        .FirstOrDefaultAsync();
+
+        //    var data = await _context.ActualStates
+        //        .Where(x => x.CircleId == user.CircleId)
+        //        .OrderByDescending(a => a)
+        //        .Include(a => a.Circle)
+        //        .Include(a => a.Person)
+        //        .Include(a => a.Project)
+        //        .Include(a => a.TypeConsultor)
+        //        .ToListAsync();
+
+        //    return View(data);
+        //}
+
+
         public async Task<IActionResult> Index(int pageNumber = 1, int
             pageSize = 3)
         {
@@ -215,14 +235,27 @@ namespace NovaMentoria.Controllers
         }
 
         // POST: ActualStates/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost, ActionName("MultipleDelete")]
+    
+        public async Task<IActionResult> DeleteConfirmed(List<int> ids)
+
+            // comando que configura a marcação dos botões executar a deleção linha 243 a 259
         {
-            var actualState = await _context.ActualStates.FindAsync(id);
-            _context.ActualStates.Remove(actualState);
+            try
+            {
+                foreach (int id in ids)
+                {
+                    var actualState = await _context.ActualStates.FindAsync(id);
+                    _context.ActualStates.Remove(actualState);
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
 
         private bool ActualStateExists(int id)

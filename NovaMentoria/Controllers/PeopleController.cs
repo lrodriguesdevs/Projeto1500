@@ -165,7 +165,7 @@ namespace NovaMentoria.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CircleId,Name,Type,CPF,Phone,DateBorn,NivelStudy,University,GraduateDate,Enterprise,Recommendation,IsStudying,Email")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CircleId,Name,Type,CPF,Phone,DateBorn,University,Enterprise,Recommendation,IsStudying,Email")] Person person)
         {
             if (id != person.Id)
             {
@@ -178,8 +178,8 @@ namespace NovaMentoria.Controllers
                 {
                     var userPerson = _context.Person.FirstOrDefault(u => u.Id == id);
 
-                    person.DateRegister = DateTime.Now;
-                    userPerson.DateBorn = DateTime.Now;
+                    userPerson.DateRegister = person.DateRegister;
+                    userPerson.DateBorn = person.DateBorn;
                     userPerson.Type = person.Type;
                     userPerson.CircleId = person.CircleId;
                     userPerson.Name = person.Name;
@@ -193,7 +193,7 @@ namespace NovaMentoria.Controllers
                     userPerson.Recommendation = person.Recommendation;
                     userPerson.IsStudying = person.IsStudying;
 
-                    _context.Update(person);
+                    _context.Update(userPerson);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -241,6 +241,27 @@ namespace NovaMentoria.Controllers
             _context.Person.Remove(person);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost, ActionName("MultipleDelete")]
+        public async Task<IActionResult> MultipleDeleteConfirmed(List<int> ids)
+        {
+            try
+            {
+                foreach (int id in ids)
+                {
+                    var person = await _context.Person.FindAsync(id);
+                    _context.Person.Remove(person);
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         private bool PersonExists(int id)

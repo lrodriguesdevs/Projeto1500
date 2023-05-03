@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using NovaMentoria.Models;
 
 namespace NovaMentoria.Controllers
 {
-    [Authorize]
     public class BankAccountsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,10 +20,34 @@ namespace NovaMentoria.Controllers
         }
 
         // GET: BankAccounts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(await _context.BankAccounts.ToListAsync());
+            int totalCount = _context.BankAccount.Count();
+            int excludeRecords = (pageNumber - 1) * pageSize;
+            var data = await _context.BankAccounts
+                .Skip(excludeRecords)
+                .Take(pageSize)
+                .OrderByDescending(a  => a.Name)
+                .Include(b => b.Enterprise)
+                .Include(b => b.Expanses)
+                .ToListAsync();
+
+            data.ForEach(x => x.AttCalculos());
+
+            var viewModel = new PaginationViewModel<BankAccount>
+            {
+                Items = data,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+            };
+
+            return View(viewModel);
+
         }
+        
+        
+            
 
         // GET: BankAccounts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -36,6 +58,7 @@ namespace NovaMentoria.Controllers
             }
 
             var bankAccount = await _context.BankAccounts
+                .Include(b => b.Enterprise)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (bankAccount == null)
             {
@@ -48,6 +71,7 @@ namespace NovaMentoria.Controllers
         // GET: BankAccounts/Create
         public IActionResult Create()
         {
+            ViewData["EnterpriseId"] = new SelectList(_context.Enterprise, "Id", "Name");
             return View();
         }
 
@@ -56,7 +80,7 @@ namespace NovaMentoria.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Enterprise,EnterpriseId,CostCenter,Balance,Name,InitialBalance")] BankAccount bankAccount)
+        public async Task<IActionResult> Create([Bind("Id,EnterpriseId,CostCenter,Balance,Name,InitialBalance")] BankAccount bankAccount)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +88,7 @@ namespace NovaMentoria.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EnterpriseId"] = new SelectList(_context.Enterprise, "Id", "Name", bankAccount.EnterpriseId);
             return View(bankAccount);
         }
 
@@ -80,6 +105,7 @@ namespace NovaMentoria.Controllers
             {
                 return NotFound();
             }
+            ViewData["EnterpriseId"] = new SelectList(_context.Enterprise, "Id", "Name", bankAccount.EnterpriseId);
             return View(bankAccount);
         }
 
@@ -88,7 +114,7 @@ namespace NovaMentoria.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Enterprise,EnterpriseId,CostCenter,Balance,Name,InitialBalance")] BankAccount bankAccount)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,EnterpriseId,CostCenter,Balance,Name,InitialBalance")] BankAccount bankAccount)
         {
             if (id != bankAccount.Id)
             {
@@ -115,6 +141,7 @@ namespace NovaMentoria.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EnterpriseId"] = new SelectList(_context.Enterprise, "Id", "Name", bankAccount.EnterpriseId);
             return View(bankAccount);
         }
 
@@ -127,6 +154,7 @@ namespace NovaMentoria.Controllers
             }
 
             var bankAccount = await _context.BankAccounts
+                .Include(b => b.Enterprise)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (bankAccount == null)
             {

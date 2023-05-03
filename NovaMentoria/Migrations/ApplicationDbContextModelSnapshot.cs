@@ -163,8 +163,8 @@ namespace NovaMentoria.Migrations
                     b.Property<int>("CircleId")
                         .HasColumnType("int");
 
-                    b.Property<float>("DateTime")
-                        .HasColumnType("real");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Delivered")
                         .HasColumnType("bit");
@@ -224,8 +224,8 @@ namespace NovaMentoria.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Balance")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<float>("Balance")
+                        .HasColumnType("real");
 
                     b.Property<string>("CostCenter")
                         .HasColumnType("nvarchar(max)");
@@ -233,8 +233,8 @@ namespace NovaMentoria.Migrations
                     b.Property<int>("EnterpriseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("InitialBalance")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<float>("InitialBalance")
+                        .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -342,6 +342,9 @@ namespace NovaMentoria.Migrations
 
                     b.Property<int>("DisbursementId")
                         .HasColumnType("int");
+
+                    b.Property<float>("EnterpriseBalance")
+                        .HasColumnType("real");
 
                     b.Property<DateTime>("MonthDate")
                         .HasColumnType("datetime2");
@@ -853,7 +856,7 @@ namespace NovaMentoria.Migrations
             modelBuilder.Entity("NovaMentoria.Models.Expensive", b =>
                 {
                     b.HasOne("NovaMentoria.Models.BankAccount", "BankAccount")
-                        .WithMany()
+                        .WithMany("Expanses")
                         .HasForeignKey("BankAccountId");
 
                     b.HasOne("NovaMentoria.Models.Capture", "Capture")

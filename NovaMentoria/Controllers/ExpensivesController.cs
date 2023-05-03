@@ -53,10 +53,10 @@ namespace NovaMentoria.Controllers
         // GET: Expensives/Create
         public IActionResult Create()
         {
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "Id", "Id");
-            ViewData["CaptureId"] = new SelectList(_context.Capture, "Id", "Id");
-            ViewData["DisbursementId"] = new SelectList(_context.CostCenter, "Id", "Id");
-            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id");
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "Id", "Name");
+            ViewData["CaptureId"] = new SelectList(_context.Capture, "Id", "Name");
+            ViewData["DisbursementId"] = new SelectList(_context.CostCenter, "Id", "Name");
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Name");
             return View();
         }
 
@@ -68,15 +68,42 @@ namespace NovaMentoria.Controllers
         public async Task<IActionResult> Create([Bind("Id,Type,RegisterDate,CashDate,MonthDate,CompDate,DisbursementId,CaptureId,PersonId,BankAccountId,TargetBill,Description,Value,Plan,Balance")] Expensive expensive)
         {
             if (ModelState.IsValid)
+
+
             {
+
                 _context.Add(expensive);
+                await _context.SaveChangesAsync();
+
+                var bankAccount = _context.BankAccounts
+                    .Where(x => x.Id == expensive.BankAccountId)
+                    .Include(x => x.Expanses)
+                    .FirstOrDefault();
+
+                var othersAccounts = _context.BankAccounts
+                    .Where(x => x.EnterpriseId == bankAccount.EnterpriseId)
+                    .Include(x => x.Expanses)
+                    .ToList();
+
+                bankAccount.AttCalculos();
+                othersAccounts.ForEach(x => x.AttCalculos());
+
+                expensive.Balance = bankAccount.Balance;
+                expensive.EnterpriseBalance = othersAccounts.Sum(x => x.Balance);
+
+
+
+
+
+                _context.Update(bankAccount);
+                _context.Update(expensive);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "Id", "Id", expensive.BankAccountId);
-            ViewData["CaptureId"] = new SelectList(_context.Capture, "Id", "Id", expensive.CaptureId);
-            ViewData["DisbursementId"] = new SelectList(_context.CostCenter, "Id", "Id", expensive.DisbursementId);
-            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", expensive.PersonId);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "Id", "Name", expensive.BankAccountId);
+            ViewData["CaptureId"] = new SelectList(_context.Capture, "Id", "Name", expensive.CaptureId);
+            ViewData["DisbursementId"] = new SelectList(_context.CostCenter, "Id", "Name", expensive.DisbursementId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Name", expensive.PersonId);
             return View(expensive);
         }
 
@@ -93,10 +120,10 @@ namespace NovaMentoria.Controllers
             {
                 return NotFound();
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "Id", "Id", expensive.BankAccountId);
-            ViewData["CaptureId"] = new SelectList(_context.Capture, "Id", "Id", expensive.CaptureId);
-            ViewData["DisbursementId"] = new SelectList(_context.CostCenter, "Id", "Id", expensive.DisbursementId);
-            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", expensive.PersonId);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "Id", "Name", expensive.BankAccountId);
+            ViewData["CaptureId"] = new SelectList(_context.Capture, "Id", "Name", expensive.CaptureId);
+            ViewData["DisbursementId"] = new SelectList(_context.CostCenter, "Id", "Name", expensive.DisbursementId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Name", expensive.PersonId);
             return View(expensive);
         }
 
@@ -132,10 +159,10 @@ namespace NovaMentoria.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "Id", "Id", expensive.BankAccountId);
-            ViewData["CaptureId"] = new SelectList(_context.Capture, "Id", "Id", expensive.CaptureId);
-            ViewData["DisbursementId"] = new SelectList(_context.CostCenter, "Id", "Id", expensive.DisbursementId);
-            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", expensive.PersonId);
+            ViewData["BankAccountId"] = new SelectList(_context.BankAccounts, "Id", "Name", expensive.BankAccountId);
+            ViewData["CaptureId"] = new SelectList(_context.Capture, "Id", "Name", expensive.CaptureId);
+            ViewData["DisbursementId"] = new SelectList(_context.CostCenter, "Id", "Name", expensive.DisbursementId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Name", expensive.PersonId);
             return View(expensive);
         }
 

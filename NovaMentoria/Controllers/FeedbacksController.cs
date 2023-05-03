@@ -29,6 +29,7 @@ namespace NovaMentoria.Controllers
                 .Include(f => f.Circle)
                 .Include(f => f.Theme)
                 .Include(f => f.PersonFeedbacks)
+
                 .ThenInclude(f => f.Person);
 
 
@@ -62,7 +63,7 @@ namespace NovaMentoria.Controllers
             ViewData["ThemeId"] = new SelectList(_context.Themes, "Id", "Name");
             ViewData["StudentId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentorado), "Id", "Name");
-            ViewData["TacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
+            ViewData["TeacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentor), "Id", "Name");
 
 
@@ -88,9 +89,9 @@ namespace NovaMentoria.Controllers
                 Student.PersonId = feedback.StudentPersonId;
 
                 PersonFeedback Teacher = new PersonFeedback();
-                Student.TypePerson = TypePerson.Mentor;
-                Student.FeedbackId = feedback.Id;
-                Student.PersonId = feedback.TeacherPersonId;
+                Teacher.TypePerson = TypePerson.Mentor;
+                Teacher.FeedbackId = feedback.Id;
+                Teacher.PersonId = feedback.TeacherPersonId;
 
 
                 _context.Add(Student);
@@ -102,7 +103,7 @@ namespace NovaMentoria.Controllers
             ViewData["ThemeId"] = new SelectList(_context.Themes, "Id", "Name", feedback.ThemeId);
             ViewData["StudentId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentorado), "Id", "Name");
-            ViewData["TacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
+            ViewData["TeacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentor), "Id", "Name");
 
 
@@ -126,7 +127,7 @@ namespace NovaMentoria.Controllers
             ViewData["ThemeId"] = new SelectList(_context.Themes, "Id", "Name", feedback.ThemeId);
             ViewData["StudentId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentorado), "Id", "Name");
-            ViewData["TacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
+            ViewData["TeacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentor), "Id", "Name");
 
 

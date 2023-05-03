@@ -19,6 +19,7 @@ namespace NovaMentoria.Models
         [DisplayName("Feedback")]
         public int FeedbackId { get; set; }
         [DisplayName("Feedback")]
+        [ForeignKey("FeedbackId")]
         public Feedback Feedback { get; set; }
     }
 }

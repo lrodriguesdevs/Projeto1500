@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace NovaMentoria.Models
 {
@@ -14,12 +16,22 @@ namespace NovaMentoria.Models
         public Enterprise Enterprise { get; set; }
         [DisplayName("Centro de Custo")]
         public string CostCenter { get; set; }
-        [DisplayName("Saldo Atual")]
-        public string Balance { get; set; }
-        [DisplayName("Nome")]
+        
+        [DisplayName("Banco")]
         public string Name { get; set; }
         [DisplayName("Saldo Inicial")]
-        public string InitialBalance { get; set; }
+        public float InitialBalance { get; set; }
+        [DisplayName("Saldo Atual")]
+        public float Balance { get; set; }
+        public List<Expensive> Expanses { get;}
+
+        public void AttCalculos()
+        {
+            this.Balance =
+            this.InitialBalance +
+            this.Expanses.Where(x => x.Type).Sum(x => x.Value) -
+            this.Expanses.Where(x => !x.Type).Sum(x => x.Value);
+        }
 
     }
 }

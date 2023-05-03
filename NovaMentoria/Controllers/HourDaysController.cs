@@ -23,6 +23,26 @@ namespace NovaMentoria.Controllers
 
         // GET: HourDays
         public async Task<IActionResult> Index()
+        //{
+        //    var user = await _context.Person
+        //        .Where(x => x.Name == User.Identity.Name)
+        //        .FirstOrDefaultAsync();
+
+        //    var data = await _context.HourDays
+        //        .Include(h => h.ActualState)
+        //        .Where(h => h.ActualState.CircleId == user.CircleId)
+        //        .Include(h => h.ActualState)
+        //        .ThenInclude(h => h.Project)
+        //        .Include(h => h.ActualState)
+        //        .ThenInclude(h => Person)
+        //        .ToListAsync();
+
+        //    return View(data);
+
+
+        //}
+
+
         {
             var applicationDbContext = _context.HourDay.Include(h => h.ActualState);
             return View(await applicationDbContext.ToListAsync());

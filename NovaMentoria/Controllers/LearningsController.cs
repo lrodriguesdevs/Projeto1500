@@ -64,7 +64,7 @@ namespace NovaMentoria.Controllers
             ViewData["ThemeId"] = new SelectList(_context.Themes, "Id", "Name");
             ViewData["StudentId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentorado), "Id", "Name");
-            ViewData["TacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
+            ViewData["TeacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentor), "Id", "Name");
 
             return View();
@@ -106,7 +106,7 @@ namespace NovaMentoria.Controllers
             ViewData["ThemeId"] = new SelectList(_context.Themes, "Id", "Name", learning.ThemeId);
             ViewData["StudentId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentorado), "Id", "Name");
-            ViewData["TacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
+            ViewData["TeacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentor), "Id", "Name");
 
 
@@ -130,7 +130,7 @@ namespace NovaMentoria.Controllers
             ViewData["ThemeId"] = new SelectList(_context.Themes, "Id", "Name", learning.ThemeId);
             ViewData["StudentId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentorado), "Id", "Name");
-            ViewData["TacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
+            ViewData["TeacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentor), "Id", "Name");
 
             
@@ -174,7 +174,7 @@ namespace NovaMentoria.Controllers
             ViewData["ThemeId"] = new SelectList(_context.Themes, "Id", "Name", learning.ThemeId);
             ViewData["StudentId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentorado), "Id", "Name");
-            ViewData["TacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
+            ViewData["TeacherId"] = new SelectList(_context.Person.Where(x => x.Type ==
             TypePerson.Mentor), "Id", "Name");
 
 

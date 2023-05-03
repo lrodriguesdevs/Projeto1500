@@ -1,8 +1,10 @@
-﻿@model PaginationViewModel<Circle>
+﻿@*@model PaginationViewModel<Circle>*@
 @{
     ViewData["Title"] = "Index";
 }
 
+<div id="StudentTableContainer"></div>
+@*
 <h1>Index</h1>
 
 <p>
@@ -43,7 +45,7 @@
         }
     </tbody>
 </table>
-<partial name="_paginator" />
+<partial name="_paginator" />*@
 @*<div>
     <ul class="pagination pagination-sn n-0 float-right">
         @if (Model.PageNumber > 1)
@@ -101,7 +103,43 @@
     }
 
     <script>
+
+       
+
+
         $(document).ready(function () {
+
+            $('#StudentTableContainer').jtable({
+                title: 'The Student List',
+                paging: true, //Enables paging
+                pageSize: 10, //Actually this is not needed since default value is 10.
+                sorting: true, //Enables sorting
+                defaultSorting: 'Name ASC', //Optional. Default sorting on first load.
+                actions: {
+                    listAction: '/Circles/Index',
+                    createAction: 'Circles/Create',
+                    updateAction: '/Circles/Update',
+                    deleteAction: '/Circles/Delete'
+                },
+                fields: {
+                    Id: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Name: {
+                        title: 'Name',
+                        width: '23%'
+                    },
+
+
+                }
+            });
+
+            //Load student list from server
+            $('#StudentTableContainer').jtable('load');
+
             $("#checkCentral").click(function () {
                 //Verifica se o botão que possui o id checkCentral foi pressionado
                 //Encontra todas as tags input que possuem a propriedade name = checkSelect

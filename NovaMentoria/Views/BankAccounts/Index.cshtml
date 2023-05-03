@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NovaMentoria.Models.BankAccount>
+﻿@model PaginationViewModel<BankAccount>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,47 +13,42 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Enterprise)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Enterprise)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnterpriseId)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().CostCenter)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CostCenter)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Balance)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().InitialBalance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InitialBalance)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Balance)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Items) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Enterprise)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnterpriseId)
+                @Html.DisplayFor(modelItem => item.Enterprise.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CostCenter)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Balance)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.InitialBalance)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
@@ -63,3 +58,78 @@
 }
     </tbody>
 </table>
+
+<partial name="_paginator" />
+
+@section Scripts
+    {
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+
+<script>
+    $(document).ready(function () {
+        $("#checkCentral").click(function () {
+            //Verifica se o botão que possui o id checkCentral foi pressionado
+            //Encontra todas as tags input que possuem a propriedade name = checkSelect
+            //Troca a propriedade checked pelo valor que o botão id checkCentral possui
+            $("input[name='checkSelect']").prop('checked', $(this).prop('checked'));
+            if ($(this).prop('checked'))
+                $("#botaoDeletar").show();
+            else
+                $("#botaoDeletar").hide();
+        });
+
+        $("input[name='checkSelect']").click(function () {
+            if ($(this).prop('checked')) {
+                $("#botaoDeletar").show();
+            }
+            else {
+                $("#botaoDeletar").hide();
+            }
+        });
+
+        $("input[name='checkSelect']").click(function () {
+            var IdSelecionados = $("input[name='checkSelect']:checked").length;
+
+            if ($(this).is(':checked') || IdSelecionados > 0) {
+                $("#botaoDeletar").show();
+            }
+            else {
+                $("#botaoDeletar").hide();
+                $("#checkCentral").prop('checked', false);
+            }
+
+        });
+
+        $("#botaoDeletar").click(function () {
+            var idsSelecionados = $("input[name='checkSelect']:checked").map(function () {
+                return $(this).val();
+            }).get();
+            //Map: é como um foreach para arrays
+            //Gera uma informação nova
+
+            //Via HTML
+            if (idsSelecionados.length > 0) {
+                if (confirm("Você tem certeza de que deseja deletar este(s) registro(s)?")) {
+                    $.ajax({
+                        url: '@Url.Action("MultipleDelete", "BankAccounts")',
+                        type: 'POST',
+                        data: { ids: idsSelecionados }, //Passa na URl as informações
+                        success: function () {
+                            location.reload()
+                        },
+                        error: function () {
+                            alert("Um erro ocorreu ao tentar deletar estes(s) registro(s).")
+                        }
+                    });
+                }
+            }
+            else {
+                alert("Por favor, selecione pelo menos um item para ser deletado")
+            }
+        });
+    });
+</script>
+}
+
