@@ -6,90 +6,187 @@
 
 <h1>Index</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Enterprise)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InsertDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Enterprise)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InsertDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<table class="table">*@
+<section class="content-header">
+    <h1> <a asp-action="Create"> Criar Novo </a> </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Projetos</h3>
+                </div>
+                <div class="box-body">
+                    @*criar id da table*@
+                    <table id="table" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Type)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fee)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Enterprise)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Duration)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Value)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EndDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.InsertDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fee)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Enterprise)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Duration)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Value)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InsertDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        @*cria os espaços no rodapé das tabelas para os filtros*@
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="visibility: hidden"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@*parte da lógica do filtro/tradução/ordenação/paginação da 83 até o final*@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+
+        $(document).ready(function () {
+            $('#table').DataTable({
+                language: {
+                    "emptyTable": "Nenhum registro encontrado ",
+                    "info": " Mostrando de _START_ até _END_ de _TOTAL_ registros ",
+                    "infoFiltered": "(Filtrados de _MAX_ registros)",
+                    "infoThousands": ".",
+                    "loadingRecords": " Carregando...",
+                    "lengthMenu": "Exibir _MENU_ resultados por página",
+                    "infoEmpty": " Mostrando 0 até 0 de 0 registro(s)",
+                    "zeroRecords": "Nenhum registro encontrado ",
+                    "search": " Pesquisar  ",
+                    "infoEmpty": " Mostrando 0 até 0 de 0 registro(s)",
+                    "processing": " Carregando...",
+                    "searchPlaceholder": " Pesquisar Registros ",
+                    "paginate": {
+                        "next": "   Próximo  ",
+                        "previous": "  Anterior   ",
+                        "first": "  Primeiro  ",
+                        "last": "  Último  "
+                    },
+                },
+
+                initComplete: function () {
+                    this.api()
+                        .columns()
+                        .every(function () {
+                            var column = this;
+                            var select = $('<select><option value="">Filtrar</option></select>')
+                                .appendTo($(column.footer()).empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                });
+
+                            column
+                                .data()
+                                .unique()
+                                .sort()
+                                .each(function (d, j) {
+                                    select.append('<option value="' + d + '">' + d + '</option>');
+                                });
+                        });
+                },
+            });
+        });
+
+
+    </script>
+
+    <link rel="" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 }
-    </tbody>
-</table>
+                    
