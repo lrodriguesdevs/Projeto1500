@@ -53,12 +53,14 @@ namespace NovaMentoria.Controllers
             //var data = await _context.Person.ToListAsync();
             // Espaço de memória recebe informações do banco que estão na 
             // tabela cículo
-            int totalCount = _context.Person.Count();
+            int totalCount = _context.Person.Where(x => x.Type == TypePerson.Mentorado).Count();
             int excludeRecords = (pageNumber - 1) * pageSize;
             var data = await _context.Person
-               .Skip(excludeRecords)
+
+                   .Where(x => x.Type == TypePerson.Mentorado)
+                   .Skip(excludeRecords)
                    .Take(pageSize)
-                   .Where(x => x.Type == TypePerson.Mentorado)   //Filtra o aluno mentorado
+                   //Filtra o aluno mentorado
                    .Include(p => p.Circle)
                    .ToListAsync();//0 - 1000 <- (10 -20) <- 10 unidades páginadas
 
@@ -70,7 +72,7 @@ namespace NovaMentoria.Controllers
                 TotalCount = totalCount
 
             };
-            return View("Index",viewModel);
+            return View("Index", viewModel);
         }
 
         public async Task<IActionResult> Teachers(int pageNumber = 1, int
@@ -80,12 +82,13 @@ namespace NovaMentoria.Controllers
             //var data = await _context.Person.ToListAsync();
             // Espaço de memória recebe informações do banco que estão na 
             // tabela cículo
-            int totalCount = _context.Person.Count();
+            int totalCount = _context.Person.Where(x => x.Type == TypePerson.Mentor).Count();
             int excludeRecords = (pageNumber - 1) * pageSize;
             var data = await _context.Person
+                .Where(x => x.Type == TypePerson.Mentor)
                .Skip(excludeRecords)
                    .Take(pageSize)
-                   .Where(x => x.Type == TypePerson.Mentor)   //Filtra o aluno mentorado
+                   //Filtra o aluno mentorado
                    .Include(p => p.Circle)
                    .ToListAsync();//0 - 1000 <- (10 -20) <- 10 unidades páginadas
 
@@ -97,7 +100,7 @@ namespace NovaMentoria.Controllers
                 TotalCount = totalCount
 
             };
-            return View("Index",viewModel);
+            return View("Index", viewModel);
         }
         // GET: People/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -9,15 +9,15 @@ namespace NovaMentoria.Models
     {
         [Key]
         public int Id { get; set; }
-        [DisplayName("Projeto")]
+        [DisplayName("Descrição")]
         public int ActualStateId { get; set; }
-        [DisplayName("Projeto")]
+        [DisplayName("Descrição")]
         public ActualState ActualState { get; set; }
         [DisplayName("Data")]
         public DateTime Date { get; set; }
         [DisplayName("Horas")]
         public float Hours { get; set; }
-        [DisplayName("Entrega")]
+        [DisplayName("Entregue")]
         public bool Delivered { get; set; }
     }
 

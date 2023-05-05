@@ -73,7 +73,16 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Circle.Name)
                                     </td>
-
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PersonLearning
+                                    .Where(x => x.TypePerson == TypePerson.Mentorado && x.LearningId == item.Id)
+                                    .FirstOrDefault().Person.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PersonLearning
+                                    .Where(x => x.TypePerson == TypePerson.Mentor && x.LearningId == item.Id)
+                                    .FirstOrDefault().Person.Name)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.OportunityLearning)
                                     </td>
@@ -182,6 +191,6 @@
 
     </script>
 
-    @*<link rel="" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>*@
+    <link rel="" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 }

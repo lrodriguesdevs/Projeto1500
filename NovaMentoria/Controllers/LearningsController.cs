@@ -89,9 +89,9 @@ namespace NovaMentoria.Controllers
                 Student.PersonId = learning.StudentPersonId;
 
                 PersonLearning Teacher = new PersonLearning();
-                Student.TypePerson = TypePerson.Mentor;
-                Student.LearningId = learning.Id;
-                Student.PersonId = learning.TeacherPersonId;
+                Teacher.TypePerson = TypePerson.Mentor;
+                Teacher.LearningId = learning.Id;
+                Teacher.PersonId = learning.TeacherPersonId;
 
 
                 _context.Add(Student);
